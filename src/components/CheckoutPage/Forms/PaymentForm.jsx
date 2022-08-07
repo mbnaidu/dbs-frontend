@@ -1,7 +1,8 @@
 import { Grid, TextField, Typography } from '@mui/material';
 import React from 'react'
 
-export default function PaymentForm() {
+export default function PaymentForm(props) {
+	console.log("transferType", props)
 	return (
 		<React.Fragment>
 			<Typography variant="h6" gutterBottom>

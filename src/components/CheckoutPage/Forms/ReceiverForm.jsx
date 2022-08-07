@@ -2,7 +2,7 @@ import { Grid, TextField, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import Axios from 'axios';
 
-export default function ReceiverForm() {
+export default function ReceiverForm(props) {
     const [ReceiverAccNum, setReceiverAccNum] = useState("");
     const [ReceiverAccName, setReceiverAccName] = useState("");
 
@@ -15,7 +15,11 @@ export default function ReceiverForm() {
                 setReceiverAccName(response.data ? response.data.accName : "");
             })
             .catch((error) => console.log(error))
-    }, [ReceiverAccNum])
+    }, [ReceiverAccNum]);
+
+    useEffect(() => {
+        props.receiverInfo(ReceiverAccName.length > 0 && props.SenderAccNo !== ReceiverAccNum ? true : false, ReceiverAccNum)
+    }, [ReceiverAccName]);
     return (
         <React.Fragment>
             <Typography variant="h6" gutterBottom>

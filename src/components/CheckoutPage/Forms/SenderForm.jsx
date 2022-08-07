@@ -1,8 +1,8 @@
-import { Grid, TextField, Typography } from '@mui/material';
+import { Button, Grid, TextField, Typography } from '@mui/material';
 import Axios from 'axios';
 import React, { useEffect, useState } from 'react'
 
-export default function SenderForm() {
+export default function SenderForm(props) {
     const [SenderAccNum, setSenderAccNum] = useState("");
     const [SenderAccName, setSenderAccName] = useState("");
     useEffect(() => {
@@ -15,6 +15,9 @@ export default function SenderForm() {
             })
             .catch((error) => console.log(error))
     }, [SenderAccNum]);
+    useEffect(() => {
+        props.senderInfo(SenderAccName.length > 0 ? true : false, SenderAccNum)
+    }, [SenderAccName]);
     return (
         <React.Fragment>
             <Typography variant="h5" gutterBottom>
