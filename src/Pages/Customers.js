@@ -76,7 +76,7 @@ export default function Customers() {
     return (
         <div>
             <MUIDataTable
-                title={"ACME Employee list"}
+                title={"All Customers list"}
                 data={AllCustomers}
                 columns={columns}
                 options=
