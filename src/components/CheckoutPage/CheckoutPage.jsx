@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import PaymentForm from './Forms/PaymentForm';
 import CheckoutSuccess from './CheckoutSuccess';
@@ -7,7 +7,7 @@ import { styled } from '@mui/material/styles';
 import useStyles from './styles';
 import SenderForm from './Forms/SenderForm';
 import ReceiverForm from './Forms/ReceiverForm';
-import { Button, Fab, Step, StepLabel, Stepper, Typography } from '@mui/material';
+import { Fab, Step, StepLabel, Stepper, Typography } from '@mui/material';
 
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';

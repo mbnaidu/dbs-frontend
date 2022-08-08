@@ -1,6 +1,6 @@
 import React from 'react';
-import "../../Styles/Login.css"
-import dbsLogo from '../../Assets/dbs-bank-logo.png';
+import "../Styles/Login.css"
+import dbsLogo from '../Assets/dbs-bank-logo.png';
 
 export default function Login() {
     const handleLogin = () => {
@@ -9,7 +9,7 @@ export default function Login() {
     };
     const FormHeader = props => (
         <h2 id="headerTitle">
-            <img src={dbsLogo} alt="logo" width="300" height="300" />
+            <img src={dbsLogo} alt="logo" className="loginLogo" />
         </h2>
     );
 
