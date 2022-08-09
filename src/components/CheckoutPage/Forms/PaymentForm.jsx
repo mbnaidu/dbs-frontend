@@ -21,7 +21,7 @@ export default function PaymentForm(props) {
 			.catch((error) => console.log(error))
 	}, []);
 	useEffect(() => {
-		if (SenderData.blnc < parseInt(amount)) {
+		if (SenderData.blnc < parseInt(amount) * 1.0025) {
 			if (!SenderData.od) {
 				setOpenErrorDialog(true)
 			}
