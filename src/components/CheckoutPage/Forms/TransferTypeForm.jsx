@@ -2,10 +2,9 @@ import { FormControl, IconButton, InputAdornment, InputLabel, MenuItem, Outlined
 import React, { useEffect } from 'react'
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
-var today = new Date(),
-    date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()
 export default function (props) {
     const [TransferType, setTransferType] = React.useState('');
+    const [MessageType, setMessageType] = React.useState('');
     const currencies = [
         {
             value: 'To Bank',
@@ -16,9 +15,11 @@ export default function (props) {
             label: '🧍',
         },
     ];
-    useEffect(() => { props.TransferTypeInfo(TransferType.length > 0 ? true : false, TransferType) }, [TransferType])
+    const bankCodes = ["CHQB", "CORT", "HOLD", "INTC", "PHOB", "PHOI", "PHON", "REPA", "SDVA"];
+    useEffect(() => { props.TransferTypeInfo(TransferType.length > 0 ? true : false, TransferType) }, [TransferType]);
+    useEffect(() => { props.MessageTypeInfo(MessageType) }, [MessageType])
     return (
-        <div style={{ margin: 'auto', width: '30%', display: 'flex' }}>
+        <div style={{ margin: 'auto', width: '50%', display: 'flex' }}>
             <TextField
                 id="outlined-select-TransferType"
                 select
@@ -53,6 +54,21 @@ export default function (props) {
                     label="Date"
                 />
             </FormControl>
+            {' '}
+            <TextField
+                id="outlined-select-MessageType"
+                select
+                label="Message Code"
+                value={MessageType}
+                onChange={(e) => setMessageType(e.target.value)}
+                sx={{ width: '25ch' }}
+            >
+                {bankCodes.map((code) => (
+                    <MenuItem key={code} value={code}>
+                        {code}
+                    </MenuItem>
+                ))}
+            </TextField>
         </div>
     )
 }

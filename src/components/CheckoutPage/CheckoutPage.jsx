@@ -55,6 +55,7 @@ export default function CheckoutPage() {
 	const [IsSenderInfoDone, setIsSenderInfoDone] = useState(false);
 	const [IsReceiverInfoDone, setIsReceiverInfoDone] = useState(false);
 	const [IsTransferTypeDone, setIsTransferTypeDone] = useState(false);
+	const [MessageType, setMessageType] = React.useState('');
 	function _sleep(ms) {
 		return new Promise(resolve => setTimeout(resolve, ms));
 	}
@@ -64,7 +65,7 @@ export default function CheckoutPage() {
 	function _renderStepContent(step) {
 		switch (step) {
 			case 0:
-				return <TransferTypeForm TransferTypeInfo={TransferTypeInfo} date={date} />;
+				return <TransferTypeForm TransferTypeInfo={TransferTypeInfo} date={date} MessageTypeInfo={MessageTypeInfo} />;
 			case 1:
 				return <SenderForm senderInfo={senderInfo} />;
 			case 2:
@@ -89,6 +90,9 @@ export default function CheckoutPage() {
 	const TransferTypeInfo = (isTransferTypeDone, transferType) => {
 		setIsTransferTypeDone(isTransferTypeDone);
 		setTransferTypeData(transferType);
+	}
+	const MessageTypeInfo = (messageType) => {
+		setMessageType(messageType)
 	}
 	async function _submitForm() {
 		await _sleep(1000);
@@ -120,7 +124,7 @@ export default function CheckoutPage() {
 			makeTransaction();
 			// _submitForm(values, actions);
 		} else {
-			if (IsTransferTypeDone) {
+			if (IsTransferTypeDone && MessageType) {
 				if (today.getDay() === 6 || today.getDay() === 0) {
 					setIsWeekend(true);
 				}
@@ -183,7 +187,7 @@ export default function CheckoutPage() {
 			</Stepper>
 			<React.Fragment>
 				{activeStep === steps.length ? (
-					<CheckoutSuccess transId={date.toString().replace(/-|:/g, '')} resetActionState={resetActionState} />
+					<CheckoutSuccess transId={date.toString().replace(/-|:/g, '')} resetActionState={resetActionState} MessageType={MessageType} />
 				) : (
 					<div>
 						{_renderStepContent(activeStep)}

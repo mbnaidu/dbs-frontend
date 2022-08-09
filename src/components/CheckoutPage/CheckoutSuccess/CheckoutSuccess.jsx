@@ -5,13 +5,11 @@ import Axios from 'axios';
 
 function CheckoutSuccess(props) {
 	const [MessageInstruction, setMessageInstruction] = useState("");
-	var bankCodes = ["CHQB", "CORT", "HOLD", "INTC", "PHOB", "PHOI", "PHON", "REPA", "SDVA"];
-	var bankCode = bankCodes[(Math.random() * bankCodes.length) | 0];
 	useEffect(() => {
-		Axios.post(`http://localhost:8081/messages/get/${bankCode}`)
+		Axios.post(`http://localhost:8081/messages/get/${props.MessageType}`)
 			.then((response) => setMessageInstruction(response.data.messageInstruction))
 			.catch((error) => console.log(error))
-	}, [])
+	}, [props])
 	return (
 		<React.Fragment>
 			<Typography variant="h5" gutterBottom>
