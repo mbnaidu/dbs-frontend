@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import PaymentForm from './Forms/PaymentForm';
 import CheckoutSuccess from './CheckoutSuccess';
@@ -7,7 +7,7 @@ import { styled } from '@mui/material/styles';
 import useStyles from './styles';
 import SenderForm from './Forms/SenderForm';
 import ReceiverForm from './Forms/ReceiverForm';
-import { Fab, Step, StepLabel, Stepper, Typography } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Fab, Slide, Step, StepLabel, Stepper } from '@mui/material';
 
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
@@ -45,6 +45,7 @@ const ColorlibStepIconRoot = styled('div')(({ theme, ownerState }) => ({
 }));
 export default function CheckoutPage() {
 	const classes = useStyles();
+	const [IsWeekend, setIsWeekend] = useState(false);
 	const [activeStep, setActiveStep] = useState(0);
 	const isLastStep = activeStep === steps.length - 1;
 	const [SenderAccNo, setSenderAccNo] = useState("");
@@ -57,11 +58,13 @@ export default function CheckoutPage() {
 	function _sleep(ms) {
 		return new Promise(resolve => setTimeout(resolve, ms));
 	}
-	// useEffect(() => { console.log(IsReceiverInfoDone, IsSenderInfoDone); _handleSubmit() }, [IsReceiverInfoDone, IsSenderInfoDone]);
+	const Transition = React.forwardRef(function Transition(props, ref) {
+		return <Slide direction="up" ref={ref} {...props} />;
+	});
 	function _renderStepContent(step) {
 		switch (step) {
 			case 0:
-				return <TransferTypeForm TransferTypeInfo={TransferTypeInfo} />;
+				return <TransferTypeForm TransferTypeInfo={TransferTypeInfo} date={date} />;
 			case 1:
 				return <SenderForm senderInfo={senderInfo} />;
 			case 2:
@@ -118,7 +121,12 @@ export default function CheckoutPage() {
 			// _submitForm(values, actions);
 		} else {
 			if (IsTransferTypeDone) {
-				setActiveStep(1)
+				if (today.getDay() === 6 || today.getDay() === 0) {
+					setIsWeekend(true);
+				}
+				else {
+					setActiveStep(1);
+				}
 			}
 			if (IsSenderInfoDone) {
 				setActiveStep(2)
@@ -147,6 +155,22 @@ export default function CheckoutPage() {
 	}
 	return (
 		<React.Fragment>
+			<Dialog
+				open={IsWeekend}
+				TransitionComponent={Transition}
+				keepMounted
+				aria-describedby="alert-dialog-slide-description"
+			>
+				<DialogTitle>{"It's WEEKEND !!!"}</DialogTitle>
+				<DialogContent>
+					<DialogContentText id="alert-dialog-slide-description">
+						Unable to do any transactions on weekdays.....
+					</DialogContentText>
+				</DialogContent>
+				<DialogActions>
+					<Button onClick={() => { setIsWeekend(false) }}>Ok</Button>
+				</DialogActions>
+			</Dialog>
 			<div className="modalHeader">
 				PAYMENT
 			</div>
