@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, TextField, Typography } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, MenuItem, TextField, Typography } from '@mui/material';
 import Axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
@@ -8,6 +8,34 @@ export default function PaymentForm(props) {
 	const [BankName, setBankName] = useState("");
 	const [SenderData, setSenderData] = useState([]);
 	const [amount, setAmount] = useState(0);
+	const [currency, setCurrency] = useState("IND");
+	const currencies = [
+		{
+			value: 'IND',
+			label: '₹',
+			change: 1,
+		},
+		{
+			value: 'USD',
+			label: '$',
+			change: 79.55,
+		},
+		{
+			value: 'EURO',
+			label: '€',
+			change: 81.41,
+		},
+		{
+			value: 'AED',
+			label: 'د.إ',
+			change: 21.66,
+		},
+		{
+			value: 'JPY',
+			label: '¥',
+			change: 0.59,
+		},
+	];
 	useEffect(() => {
 		Axios.post(`http://localhost:8081/bank/get/${BIC}`)
 			.then((response) => {
@@ -26,8 +54,15 @@ export default function PaymentForm(props) {
 				setOpenErrorDialog(true)
 			}
 		}
-		props.setAmountValue(BankName.length > 0 ? true : false, parseInt(amount))
-	}, [amount, SenderData]);
+		props.setAmountValue(BankName.length > 0 ? true : false, parseInt(amount) * 1.0025)
+	}, [amount, SenderData, currency]);
+	const getValues = (change, amount) => {
+		setAmount(change * amount)
+	}
+	const handleCurrency = (e) => {
+		setCurrency(e.value);
+		getValues(e.change, amount);
+	}
 	return (
 		<React.Fragment>
 			<Dialog
@@ -64,6 +99,23 @@ export default function PaymentForm(props) {
 			<Grid container spacing={3}>
 				<Grid item xs={12} sm={6}>
 					<TextField id="standard-basic" label="Amount" variant="standard" disabled={!BankName} value={amount} type="number" onChange={(event) => setAmount(event.target.value)} />
+				</Grid>
+				<Grid item xs={12} sm={6}>
+					<TextField
+						id="standard-select-currency"
+						select
+						variant="standard"
+						label="Select"
+						value={currency}
+						disabled={!amount}
+						helperText="Please select currency to transfer"
+					>
+						{currencies.map((option) => (
+							<MenuItem key={option.value} value={option.value} onClick={() => handleCurrency(option)}>
+								{option.label}{' '}{option.value}
+							</MenuItem>
+						))}
+					</TextField>
 				</Grid>
 			</Grid>
 		</React.Fragment>

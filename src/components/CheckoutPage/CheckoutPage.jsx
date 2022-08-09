@@ -108,7 +108,7 @@ export default function CheckoutPage() {
 			"receiverNo": ReceiverAccNo,
 			"transType": TransferTypeData,
 			"transId": date.toString().replace(/-|:/g, ''),
-			"transAmount": amount * 1.0025,
+			"transAmount": amount,
 			"transDate": date.toString()
 		}
 		Axios.post("http://localhost:8081/transaction/add", data)

@@ -1,7 +1,8 @@
 import { FormControl, IconButton, InputAdornment, InputLabel, MenuItem, OutlinedInput, TextField } from '@mui/material'
 import React, { useEffect } from 'react'
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-
+var today = new Date(),
+    date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
 export default function (props) {
     const [TransferType, setTransferType] = React.useState('');
     const [MessageType, setMessageType] = React.useState('');
@@ -40,7 +41,7 @@ export default function (props) {
                 <OutlinedInput
                     id="outlined-adornment-Date"
                     type={'text'}
-                    value={props.date.substring(0, props.date.length - 9)}
+                    value={date}
                     disabled
                     endAdornment={
                         <InputAdornment position="end">
