@@ -1,0 +1,9 @@
+.modalHeader {
+    background: -webkit-linear-gradient(rgb(233, 64, 87), #333);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 50px;
+    text-align: center;
+    font-weight: bold;
+    letter-spacing: 10px;
+}

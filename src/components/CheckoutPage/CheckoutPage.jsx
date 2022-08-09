@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import PaymentForm from './Forms/PaymentForm';
 import CheckoutSuccess from './CheckoutSuccess';
@@ -17,6 +17,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import SavingsIcon from '@mui/icons-material/Savings';
 import TransferTypeForm from './Forms/TransferTypeForm';
 import Axios from 'axios';
+import './Styles.css';
 
 const steps = ["Transfer Type", 'Sender Details', 'Receiver Details', 'Payment Details'];
 
@@ -44,9 +45,8 @@ const ColorlibStepIconRoot = styled('div')(({ theme, ownerState }) => ({
 }));
 export default function CheckoutPage() {
 	const classes = useStyles();
-	const [activeStep, setActiveStep] = useState(4);
+	const [activeStep, setActiveStep] = useState(0);
 	const isLastStep = activeStep === steps.length - 1;
-
 	const [SenderAccNo, setSenderAccNo] = useState("");
 	const [ReceiverAccNo, setReceiverAccNo] = useState("");
 	const [TransferTypeData, setTransferTypeData] = useState("");
@@ -67,7 +67,7 @@ export default function CheckoutPage() {
 			case 2:
 				return <ReceiverForm receiverInfo={receiverInfo} SenderAccNo={SenderAccNo} />;
 			case 3:
-				return <PaymentForm setAmountValue={setAmountValue} />;
+				return <PaymentForm setAmountValue={setAmountValue} SenderAccNo={SenderAccNo} />;
 			default:
 				return <div>Not Found</div>;
 		}
@@ -147,9 +147,9 @@ export default function CheckoutPage() {
 	}
 	return (
 		<React.Fragment>
-			<Typography component="h1" variant="h4" align="center">
-				Payment
-			</Typography>
+			<div className="modalHeader">
+				PAYMENT
+			</div>
 			<Stepper activeStep={activeStep} className={classes.stepper}>
 				{steps.map(label => (
 					<Step key={label}>
@@ -165,7 +165,7 @@ export default function CheckoutPage() {
 						{_renderStepContent(activeStep)}
 						<div className={classes.buttons}>
 							<div className={classes.wrapper}>
-								<Fab color="primary" aria-label="add" onClick={_handleSubmit} style={{
+								<Fab color="info" aria-label="add" onClick={_handleSubmit} style={{
 									backgroundImage:
 										'linear-gradient( 136deg, rgb(242,113,33) 0%, rgb(233,64,87) 50%, rgb(138,35,135) 100%)',
 									boxShadow: '0 4px 10px 0 rgba(0,0,0,.25)'

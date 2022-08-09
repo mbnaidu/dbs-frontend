@@ -7,10 +7,7 @@ export default function ReceiverForm(props) {
     const [ReceiverAccName, setReceiverAccName] = useState("");
 
     useEffect(() => {
-        const receiverData = {
-            "accNo": ReceiverAccNum
-        }
-        Axios.post('http://localhost:8081/customer/get', receiverData)
+        Axios.post(`http://localhost:8081/customer/get/${ReceiverAccNum}`)
             .then((response) => {
                 setReceiverAccName(response.data ? response.data.accName : "");
             })

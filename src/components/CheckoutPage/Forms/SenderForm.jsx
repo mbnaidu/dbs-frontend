@@ -6,10 +6,7 @@ export default function SenderForm(props) {
     const [SenderAccNum, setSenderAccNum] = useState("");
     const [SenderAccName, setSenderAccName] = useState("");
     useEffect(() => {
-        const senderData = {
-            "accNo": SenderAccNum
-        }
-        Axios.post('http://localhost:8081/customer/get', senderData)
+        Axios.post(`http://localhost:8081/customer/get/${SenderAccNum}`)
             .then((response) => {
                 setSenderAccName(response.data ? response.data.accName : "");
             })

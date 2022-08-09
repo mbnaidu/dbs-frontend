@@ -1,20 +1,31 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Fab, Typography } from '@mui/material';
 import CachedIcon from '@mui/icons-material/Cached';
+import Axios from 'axios';
 
 function CheckoutSuccess(props) {
+	const [MessageInstruction, setMessageInstruction] = useState("");
+	var bankCodes = ["CHQB", "CORT", "HOLD", "INTC", "PHOB", "PHOI", "PHON", "REPA", "SDVA"];
+	var bankCode = bankCodes[(Math.random() * bankCodes.length) | 0];
+	useEffect(() => {
+		Axios.post(`http://localhost:8081/messages/get/${bankCode}`)
+			.then((response) => setMessageInstruction(response.data.messageInstruction))
+			.catch((error) => console.log(error))
+	}, [])
 	return (
 		<React.Fragment>
 			<Typography variant="h5" gutterBottom>
-				Thank you for your order.
+				Transaction Successful.
 			</Typography>
-			<div className="row">
-				<Typography variant="subtitle1">
-					Your order number is {props.transId}. We have emailed your order confirmation,
-					and will send you an update when your order has shipped.
-				</Typography>
+			<div className="row" style={{ textAlign: 'center' }}>
+				<div>
+					Transaction number is <strong>{props.transId}</strong>.
+					<br />
+					{MessageInstruction}
+				</div>
 				<Fab color="primary" aria-label="add" onClick={() => { props.resetActionState() }} style={{
 					width: 100,
+					margin: 10,
 					backgroundImage:
 						'linear-gradient( 136deg, rgb(242,113,33) 0%, rgb(233,64,87) 50%, rgb(138,35,135) 100%)',
 					boxShadow: '0 4px 10px 0 rgba(0,0,0,.25)'

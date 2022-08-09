@@ -1,10 +1,12 @@
-import { Grid, TextField, Typography } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, TextField, Typography } from '@mui/material';
 import Axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
 export default function PaymentForm(props) {
+	const [OpenErrorDialog, setOpenErrorDialog] = useState(false);
 	const [BIC, setBIC] = useState("");
 	const [BankName, setBankName] = useState("");
+	const [SenderData, setSenderData] = useState([]);
 	const [amount, setAmount] = useState(0);
 	useEffect(() => {
 		Axios.post(`http://localhost:8081/bank/get/${BIC}`)
@@ -14,10 +16,39 @@ export default function PaymentForm(props) {
 			.catch((error) => console.log(error))
 	}, [BIC]);
 	useEffect(() => {
+		Axios.post(`http://localhost:8081/customer/get/${props.SenderAccNo}`)
+			.then((response) => setSenderData(response.data))
+			.catch((error) => console.log(error))
+	}, []);
+	useEffect(() => {
+		if (SenderData.blnc < parseInt(amount)) {
+			if (!SenderData.od) {
+				setOpenErrorDialog(true)
+			}
+		}
 		props.setAmountValue(BankName.length > 0 ? true : false, parseInt(amount))
-	}, [amount]);
+	}, [amount, SenderData]);
 	return (
 		<React.Fragment>
+			<Dialog
+				open={OpenErrorDialog}
+				aria-labelledby="alert-dialog-title"
+				aria-describedby="alert-dialog-description"
+			>
+				<DialogTitle id="alert-dialog-title">
+					{"Insufficient Balance in your account"}
+				</DialogTitle>
+				<DialogContent>
+					<DialogContentText id="alert-dialog-description">
+						No Overdraft access, Please contact Help.
+					</DialogContentText>
+				</DialogContent>
+				<DialogActions>
+					<Button onClick={() => { setOpenErrorDialog(false); setAmount(0) }} autoFocus>
+						Ok
+					</Button>
+				</DialogActions>
+			</Dialog>
 			<Typography variant="h6" gutterBottom>
 				Payment Information
 			</Typography>
