@@ -20,6 +20,8 @@ import Axios from 'axios';
 
 const steps = ["Transfer Type", 'Sender Details', 'Receiver Details', 'Payment Details'];
 
+var today = new Date(),
+	date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate() + '-' + today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
 const ColorlibStepIconRoot = styled('div')(({ theme, ownerState }) => ({
 	backgroundColor: theme.palette.mode === 'dark' ? theme.palette.grey[700] : '#ccc',
 	zIndex: 1,
@@ -42,12 +44,13 @@ const ColorlibStepIconRoot = styled('div')(({ theme, ownerState }) => ({
 }));
 export default function CheckoutPage() {
 	const classes = useStyles();
-	const [activeStep, setActiveStep] = useState(0);
+	const [activeStep, setActiveStep] = useState(4);
 	const isLastStep = activeStep === steps.length - 1;
 
 	const [SenderAccNo, setSenderAccNo] = useState("");
 	const [ReceiverAccNo, setReceiverAccNo] = useState("");
 	const [TransferTypeData, setTransferTypeData] = useState("");
+	const [amount, setAmount] = useState(0);
 	const [IsSenderInfoDone, setIsSenderInfoDone] = useState(false);
 	const [IsReceiverInfoDone, setIsReceiverInfoDone] = useState(false);
 	const [IsTransferTypeDone, setIsTransferTypeDone] = useState(false);
@@ -64,10 +67,13 @@ export default function CheckoutPage() {
 			case 2:
 				return <ReceiverForm receiverInfo={receiverInfo} SenderAccNo={SenderAccNo} />;
 			case 3:
-				return <PaymentForm SenderAccNo={SenderAccNo} ReceiverAccNo={ReceiverAccNo} />;
+				return <PaymentForm setAmountValue={setAmountValue} />;
 			default:
 				return <div>Not Found</div>;
 		}
+	}
+	const setAmountValue = (action, value) => {
+		setAmount(value)
 	}
 	const senderInfo = (isSenderDone, senderAccNo) => {
 		setSenderAccNo(senderAccNo)
@@ -81,30 +87,35 @@ export default function CheckoutPage() {
 		setIsTransferTypeDone(isTransferTypeDone);
 		setTransferTypeData(transferType);
 	}
-	async function _submitForm(values) {
+	async function _submitForm() {
 		await _sleep(1000);
 		setActiveStep(activeStep + 1);
 	}
+	const resetActionState = () => {
+		setActiveStep(0);
+	}
 	const makeTransaction = () => {
-		var today = new Date(),
-			date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
 		const data = {
-			"empName": "madhu",
+			"empName": localStorage.getItem("session"),
 			"senderNo": SenderAccNo,
 			"receiverNo": ReceiverAccNo,
 			"transType": TransferTypeData,
-			"transId": date.toString().replace('-', ''),
-			"transAmount": 20,
+			"transId": date.toString().replace(/-|:/g, ''),
+			"transAmount": amount,
 			"transDate": date.toString()
 		}
 		Axios.post("http://localhost:8081/transaction/add", data)
-			.then((response) => console.log(response))
+			.then((response) => {
+				if (response.data === "saved") {
+					_submitForm()
+				}
+			})
 			.catch((error) => console.log(error))
 	}
 	function _handleSubmit(values, actions) {
 		if (isLastStep) {
 			makeTransaction();
-			_submitForm(values, actions);
+			// _submitForm(values, actions);
 		} else {
 			if (IsTransferTypeDone) {
 				setActiveStep(1)
@@ -148,7 +159,7 @@ export default function CheckoutPage() {
 			</Stepper>
 			<React.Fragment>
 				{activeStep === steps.length ? (
-					<CheckoutSuccess />
+					<CheckoutSuccess transId={date.toString().replace(/-|:/g, '')} resetActionState={resetActionState} />
 				) : (
 					<div>
 						{_renderStepContent(activeStep)}

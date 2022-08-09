@@ -7,7 +7,6 @@ export default function App() {
     return (
         <MaterialLayout>
             <CheckoutPage />
-            <Button variant="contained" color="error" onClick={() => { localStorage.clear(); window.location.reload() }}>LOGOUT</Button>
         </MaterialLayout>
     )
 }

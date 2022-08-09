@@ -4,15 +4,15 @@ import { theme, useStyle } from './styles';
 import { CssBaseline, Paper, ThemeProvider } from '@mui/material';
 
 export default function MaterialLayout(props) {
-  const { children } = props;
-  const classes = useStyle();
+	const { children } = props;
+	const classes = useStyle();
 
-  return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <div className={classes.root} style={{ width: '80%' }}>
-        <Paper className={classes.paper}>{children}</Paper>
-      </div>
-    </ThemeProvider>
-  );
+	return (
+		<ThemeProvider theme={theme}>
+			<CssBaseline />
+			<div className={classes.root} style={{ width: '80%', marginTop: window.innerHeight / 2 - 240 }}>
+				<Paper className={classes.paper}>{children}</Paper>
+			</div>
+		</ThemeProvider>
+	);
 }
