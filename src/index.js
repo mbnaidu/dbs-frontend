@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import App from "./App";
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import Header from './Contents/Header';
 import Customers from './Pages/Customers';
 import Transactions from './Pages/Transactions';
@@ -14,10 +13,10 @@ root.render(
     <BrowserRouter>
         {UserExists && <Header />}
         <Routes>
-            <Route exact path="/" element={UserExists ? <App /> : <Login />} />
-            <Route exact path="/customers" element={<Customers />} />
-            <Route exact path="/transactions" element={<Transactions />} />
-            <Route exact path="/transaction" element={<Transaction />} />
+            <Route exact path="/" element={UserExists ? <Navigate to="/customers" replace /> : <Login />} />
+            <Route exact path="/customers" element={UserExists ? <Customers /> : <Navigate to="/" replace />} />
+            <Route exact path="/transactions" element={UserExists ? <Transactions /> : <Navigate to="/" replace />} />
+            <Route exact path="/transaction" element={UserExists ? <Transaction /> : <Navigate to="/" replace />} />
         </Routes>
     </BrowserRouter>
 );
