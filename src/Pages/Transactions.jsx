@@ -13,6 +13,8 @@ export default function Transactions() {
         { label: 'Transaction Type', name: 'transType' },
         { label: 'Transaction Amount', name: 'transAmount' },
         { label: 'Transaction Date', name: 'transDate' },
+        { label: 'Bank Code', name: 'bankCode' },
+        { label: 'Bank Name', name: 'bankName' },
     ];
     useEffect(() => {
         Axios.get("http://localhost:8081/transaction/list")

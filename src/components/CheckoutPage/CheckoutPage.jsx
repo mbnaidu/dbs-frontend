@@ -56,6 +56,8 @@ export default function CheckoutPage() {
 	const [IsReceiverInfoDone, setIsReceiverInfoDone] = useState(false);
 	const [IsTransferTypeDone, setIsTransferTypeDone] = useState(false);
 	const [MessageType, setMessageType] = React.useState('');
+	const [BankCode, setBankCode] = React.useState("");
+	const [BankName, setBankName] = React.useState("");
 	function _sleep(ms) {
 		return new Promise(resolve => setTimeout(resolve, ms));
 	}
@@ -76,8 +78,10 @@ export default function CheckoutPage() {
 				return <div>Not Found</div>;
 		}
 	}
-	const setAmountValue = (action, value) => {
-		setAmount(value)
+	const setAmountValue = (amount, bic, bankName) => {
+		setAmount(amount);
+		setBankCode(bic);
+		setBankName(bankName);
 	}
 	const senderInfo = (isSenderDone, senderAccNo) => {
 		setSenderAccNo(senderAccNo)
@@ -109,7 +113,10 @@ export default function CheckoutPage() {
 			"transType": TransferTypeData,
 			"transId": date.toString().replace(/-|:/g, ''),
 			"transAmount": amount,
-			"transDate": date.toString()
+			"transDate": date.toString(),
+			"bankCode": BankCode,
+			"bankName": BankName,
+			"messageCode": MessageType,
 		}
 		Axios.post("http://localhost:8081/transaction/add", data)
 			.then((response) => {
@@ -119,7 +126,7 @@ export default function CheckoutPage() {
 			})
 			.catch((error) => console.log(error))
 	}
-	function _handleSubmit(values, actions) {
+	function _handleSubmit() {
 		if (isLastStep) {
 			makeTransaction();
 			// _submitForm(values, actions);

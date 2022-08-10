@@ -1,6 +1,6 @@
-import { IconButton, Paper, Table, TableCell, TableContainer, TableRow } from '@mui/material';
+import { IconButton } from '@mui/material';
 import Axios from 'axios';
-import MUIDataTable, { TableBody, TableHead } from 'mui-datatables';
+import MUIDataTable from 'mui-datatables';
 import React, { useEffect, useState } from 'react'
 import { CloudDownload } from '@mui/icons-material/CloudDownload';
 import BasicTable from '../Contents/Tables';
@@ -8,13 +8,11 @@ import BasicTable from '../Contents/Tables';
 export default function Customers() {
     const [AllCustomers, setAllCustomers] = useState([]);
     const columns = [
-        { label: 'Account Number', name: 'accNo' },
-        { label: 'Account Name', name: 'accName' },
-        { label: 'Account Balance', name: 'blnc' },
+        { label: 'Number', name: 'accNo' },
+        { label: 'Name', name: 'accName' },
+        { label: 'Balance', name: 'blnc' },
+        { label: 'Debited', name: 'debited' },
     ];
-    const handleRowClick = (rowData, rowMeta) => {
-        console.log(rowData, rowMeta);
-    };
     // gets from all the data the selected rows
     const getRowsToBeDownloaded = (selectedRows, data) => {
         return data.filter(row => selectedRows.data.some(selected => selected.dataIndex === row.dataIndex)).map(row => row.data);

@@ -39,7 +39,7 @@ export default function PaymentForm(props) {
 	useEffect(() => {
 		Axios.post(`http://localhost:8081/bank/get/${BIC}`)
 			.then((response) => {
-				setBankName(response.data ? response.data.bank_name : "")
+				setBankName(response.data ? response.data.bankName : "")
 			})
 			.catch((error) => console.log(error))
 	}, [BIC]);
@@ -54,7 +54,7 @@ export default function PaymentForm(props) {
 				setOpenErrorDialog(true)
 			}
 		}
-		props.setAmountValue(BankName.length > 0 ? true : false, parseInt(amount) * 1.0025)
+		props.setAmountValue(parseInt(amount) * 1.0025, BIC, BankName)
 	}, [amount, SenderData, currency]);
 	const getValues = (change, amount) => {
 		setAmount(change * amount)
@@ -89,10 +89,10 @@ export default function PaymentForm(props) {
 			</Typography>
 			<Grid container spacing={3}>
 				<Grid item xs={12} sm={6}>
-					<TextField label="BIC Code" variant="standard" value={BIC} onChange={(event) => setBIC(event.target.value)} />
+					<TextField label="BIC Code" variant="standard" value={BIC || ""} onChange={(event) => setBIC(event.target.value)} />
 				</Grid>
 				<Grid item xs={12} sm={6}>
-					<TextField label="Bank Name" variant="standard" value={BankName} disabled />
+					<TextField label="Bank Name" variant="standard" value={BankName || ""} disabled />
 				</Grid>
 			</Grid>
 			<br />
