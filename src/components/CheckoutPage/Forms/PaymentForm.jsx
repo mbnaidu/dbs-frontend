@@ -26,9 +26,9 @@ export default function PaymentForm(props) {
 			change: 81.41,
 		},
 		{
-			value: 'AED',
-			label: 'د.إ',
-			change: 21.66,
+			value: 'GBP',
+			label: '£',
+			change: 102,
 		},
 		{
 			value: 'JPY',

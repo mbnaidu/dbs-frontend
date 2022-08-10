@@ -20,7 +20,7 @@ export default function Transactions() {
             .catch((error) => console.log(error))
     }, []);
     return (
-        <div>
+        <div style={{ margin: 'auto', margin: 20 }}>
             <MUIDataTable
                 title={"All Transactions list"}
                 data={AllTransactions}

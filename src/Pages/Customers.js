@@ -74,7 +74,7 @@ export default function Customers() {
         )
     }
     return (
-        <div>
+        <div style={{ margin: 'auto', margin: 20 }}>
             <MUIDataTable
                 title={"All Customers list"}
                 data={AllCustomers}

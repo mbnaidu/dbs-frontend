@@ -13,6 +13,7 @@ import HeaderLogo from '../Assets/headerlogo.png';
 import { useNavigate } from 'react-router-dom';
 
 const pages = [
+    { title: 'Dashboard', route: "/dashboard" },
     { title: 'Customers', route: "/customers" },
     { title: 'Transactions', route: "/transactions" },
     { title: 'Transaction', route: "/transaction" },
