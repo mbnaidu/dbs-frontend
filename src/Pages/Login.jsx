@@ -7,18 +7,18 @@ export default function Login() {
         localStorage.setItem("session", document.getElementById("username").value);
         window.location.reload();
     };
-    const FormHeader = props => (
+    const FormHeader = () => (
         <h2 id="headerTitle">
             <img src={dbsLogo} alt="logo" className="loginLogo" />
         </h2>
     );
 
 
-    const Form = props => (
+    const Form = () => (
         <div>
             <FormInput description="Username" placeholder="Enter your username" type="text" id="username" />
             <FormInput description="Password" placeholder="Enter your password" type="password" id="password" />
-            <FormButton title="Log in" />
+            <FormButton title="Login" />
         </div>
     );
 

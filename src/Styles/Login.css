@@ -64,11 +64,6 @@ html {
     transition: opacity 0.25s ease-out;
 }
 
-.row input:hover::-webkit-input-placeholder,
-.row input:focus::-webkit-input-placeholder {
-    opacity: 0;
-}
-
 .row label {
     align-self: start;
     padding-left: 4.5rem;
@@ -77,14 +72,15 @@ html {
 }
 
 .row button {
+    margin-top: 40px;
     border-radius: 25px;
-    width: 80%;
-    height: 40px;
+    width: 50%;
+    height: 45px;
     font-size: 1.3rem;
     color: white;
     font-weight: 700;
     background: rgb(34, 193, 195);
-    background: linear-gradient(10deg, rgb(0, 0, 0) 0%, rgb(216, 17, 43) 50%, rgb(0, 0, 0) 100%);
+    background: linear-gradient(10deg, rgb(0, 0, 0) 10%, rgb(255, 0, 34) 50%, rgb(0, 0, 0) 100%);
     border: 0px;
     cursor: pointer;
     transition: opacity 0.25s ease-out;
