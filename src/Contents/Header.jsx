@@ -3,7 +3,6 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
@@ -11,6 +10,7 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import HeaderLogo from '../Assets/headerlogo.png';
 import { useNavigate } from 'react-router-dom';
+import Axios from 'axios';
 
 const pages = [
     { title: 'Dashboard', route: "/dashboard" },
@@ -32,8 +32,18 @@ const Header = () => {
     };
 
     const handleLogout = () => {
-        localStorage.clear();
-        window.location.reload()
+
+        const data = {
+            empName: localStorage.getItem("session")
+        }
+        Axios.post("http://localhost:8081/employee/logout", data)
+            .then((response) => {
+                if (response.data === "logged Out") {
+                    localStorage.clear();
+                    window.location.reload();
+                }
+            })
+            .catch((err) => { console.log(err) })
     }
     const DesktopView = () => {
         return (
