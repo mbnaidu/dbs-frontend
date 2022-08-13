@@ -1,6 +1,6 @@
 import Axios from 'axios';
 import MUIDataTable from 'mui-datatables';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 
 export default function Dashboard() {
     const [AllCustomers, setAllCustomers] = useState([]);
@@ -23,7 +23,7 @@ export default function Dashboard() {
     }, []);
     return (
         <div style={{ display: 'flex', margin: 'auto' }}>
-            <div style={{ margin: 'auto', margin: 20, width: '100%' }}>
+            <div style={{ margin: 20, width: '100%' }}>
                 <MUIDataTable
                     title={"Top 5 Customer Transactions"}
                     data={AllCustomers}
@@ -36,11 +36,11 @@ export default function Dashboard() {
                         print: false,
                         expandableRows: false,
                         selectableRows: false,
-                        rowsPerPageOptions: false
+                        rowsPerPageOptions: [0],
                     }}
                 />
             </div>
-            <div style={{ margin: 'auto', margin: 20, width: '100%' }}>
+            <div style={{ margin: 20, width: '100%' }}>
                 <MUIDataTable
                     title={"Top 5 Bank Transactions"}
                     data={AllBanks}
@@ -53,7 +53,7 @@ export default function Dashboard() {
                         print: false,
                         expandableRows: false,
                         selectableRows: false,
-                        rowsPerPageOptions: false,
+                        rowsPerPageOptions: [0],
                     }}
                 />
             </div>

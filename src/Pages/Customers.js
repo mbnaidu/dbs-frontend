@@ -16,7 +16,7 @@ export default function Customers() {
             .catch((error) => console.log(error))
     }, []);
     return (
-        <div style={{ margin: 'auto', margin: 20 }}>
+        <div style={{ margin: 20 }}>
             <MUIDataTable
                 title={"All Customers list"}
                 data={AllCustomers}

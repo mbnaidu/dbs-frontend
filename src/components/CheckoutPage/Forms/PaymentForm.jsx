@@ -47,7 +47,7 @@ export default function PaymentForm(props) {
 		Axios.post(`http://localhost:8081/customer/get/${props.SenderAccNo}`)
 			.then((response) => setSenderData(response.data))
 			.catch((error) => console.log(error))
-	}, []);
+	}, [props.SenderAccNo]);
 	useEffect(() => {
 		if (SenderData.blnc < parseInt(amount) * 1.0025) {
 			if (!SenderData.od) {
@@ -55,7 +55,7 @@ export default function PaymentForm(props) {
 			}
 		}
 		props.setAmountValue(parseInt(amount) * 1.0025, BIC, BankName)
-	}, [amount, SenderData, currency]);
+	}, [amount, SenderData, currency, props, SenderData.blnc, BIC, BankName]);
 	const getValues = (change, amount) => {
 		setAmount(change * amount)
 	}

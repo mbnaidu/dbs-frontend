@@ -16,7 +16,7 @@ export default function ReceiverForm(props) {
 
     useEffect(() => {
         props.receiverInfo(ReceiverAccName.length > 0 && props.SenderAccNo !== ReceiverAccNum ? true : false, ReceiverAccNum)
-    }, [ReceiverAccName]);
+    }, [ReceiverAccName, props, ReceiverAccNum]);
     return (
         <React.Fragment>
             <Typography variant="h6" gutterBottom>

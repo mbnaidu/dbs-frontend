@@ -1,8 +1,10 @@
 import { FormControl, IconButton, InputAdornment, InputLabel, MenuItem, OutlinedInput, TextField } from '@mui/material'
 import React, { useEffect } from 'react'
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+
 var today = new Date(),
     date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+
 export default function (props) {
     const [TransferType, setTransferType] = React.useState('');
     const [MessageType, setMessageType] = React.useState('');
@@ -17,8 +19,12 @@ export default function (props) {
         },
     ];
     const bankCodes = ["CHQB", "CORT", "HOLD", "INTC", "PHOB", "PHOI", "PHON", "REPA", "SDVA"];
-    useEffect(() => { props.TransferTypeInfo(TransferType.length > 0 ? true : false, TransferType) }, [TransferType]);
-    useEffect(() => { props.MessageTypeInfo(MessageType) }, [MessageType])
+    useEffect(() => {
+        props.TransferTypeInfo(TransferType.length > 0 ? true : false, TransferType);
+    }, [TransferType, props]);
+    useEffect(() => {
+        props.MessageTypeInfo(MessageType);
+    }, [props, MessageType])
     return (
         <div style={{ margin: 'auto', width: '50%', display: 'flex' }}>
             <TextField
