@@ -23,8 +23,8 @@ export default function DeveloperOtions() {
     const [openLanguageModal, setOpenLanguageModal] = React.useState(false);
     const [openThemeModal, setOpenThemeModal] = React.useState(false);
     const [currency, setCurrency] = React.useState(localStorage.getItem('currentLanguage') || 'en');
-    const [theme1Color, setTheme1Color] = React.useState("");
-    const [theme2Color, setTheme2Color] = React.useState("");
+    const [theme1Color, setTheme1Color] = React.useState(localStorage.getItem('firstTheme'));
+    const [theme2Color, setTheme2Color] = React.useState(localStorage.getItem('secondTheme'));
     const handleChange = (event) => {
         setCurrency(event.target.value);
         localStorage.setItem('currentLanguage', event.target.value);

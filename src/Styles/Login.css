@@ -80,7 +80,7 @@ html {
     color: white;
     font-weight: 700;
     background: rgb(34, 193, 195);
-    background: linear-gradient(10deg, rgb(0, 0, 0) 10%, rgb(255, 0, 34) 50%, rgb(0, 0, 0) 100%);
+    /* background: linear-gradient(10deg, rgb(0, 0, 0) 10%, rgb(255, 0, 34) 50%, rgb(0, 0, 0) 100%); */
     border: 0px;
     cursor: pointer;
     transition: opacity 0.25s ease-out;

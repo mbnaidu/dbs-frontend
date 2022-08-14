@@ -4,6 +4,7 @@ import dbsLogo from '../Assets/dbs-bank-logo.png';
 import Axios from 'axios';
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slide } from '@mui/material';
 import { presentLanguage } from '../res/Values';
+import { firstTheme, secondTheme } from '../Globals/GlobalValues';
 
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -47,7 +48,7 @@ export default function Login() {
 
     const FormButton = props => (
         <div id="button" className="row">
-            <button onClick={() => handleLogin()}>{props.title}</button>
+            <button onClick={() => handleLogin()} style={{ background: `linear-gradient(10deg, ${firstTheme} 10%, ${secondTheme} 50%, ${firstTheme} 100%)` }}>{props.title}</button>
         </div>
     );
 
