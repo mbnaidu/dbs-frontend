@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import Axios from 'axios';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slide } from '@mui/material';
 import { presentLanguage } from '../res/Values';
+import { bgColor } from '../Globals/GlobalValues';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -139,7 +140,7 @@ const Header = () => {
                     <Button onClick={() => { localStorage.setItem("developerMode", true); setOpen(false); window.location.reload(); }}>Ok</Button>
                 </DialogActions>
             </Dialog>
-            <AppBar position="static" style={{ background: 'linear-gradient(10deg, rgb(0, 0, 0) 0%, rgb(216, 17, 43) 50%, rgb(0, 0, 0) 100%)' }}>
+            <AppBar position="static" style={{ background: bgColor }}>
                 <Container maxWidth="xl">
                     <Toolbar disableGutters style={{ height: 80 }}>
                         <img src={HeaderLogo} alt="headerLogo" width="300" height="80" style={{ cursor: 'pointer' }} onClick={() => setOpen(true)} />

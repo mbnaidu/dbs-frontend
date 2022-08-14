@@ -6,9 +6,12 @@ import SpeedDialAction from '@mui/material/SpeedDialAction';
 import TranslateIcon from '@mui/icons-material/Translate';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, MenuItem, Slide, TextField } from '@mui/material';
 import { presentLanguage } from '../res/Values';
+import PaletteIcon from '@mui/icons-material/Palette';
+import { firstTheme, secondTheme } from '../Globals/GlobalValues';
 
 const actions = [
     { icon: <TranslateIcon />, name: 'Language' },
+    { icon: <PaletteIcon />, name: 'Theme' },
 ];
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -18,7 +21,10 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export default function DeveloperOtions() {
     const [open, setOpen] = React.useState(false);
     const [openLanguageModal, setOpenLanguageModal] = React.useState(false);
+    const [openThemeModal, setOpenThemeModal] = React.useState(false);
     const [currency, setCurrency] = React.useState(localStorage.getItem('currentLanguage') || 'en');
+    const [theme1Color, setTheme1Color] = React.useState("");
+    const [theme2Color, setTheme2Color] = React.useState("");
     const handleChange = (event) => {
         setCurrency(event.target.value);
         localStorage.setItem('currentLanguage', event.target.value);
@@ -43,12 +49,62 @@ export default function DeveloperOtions() {
             case "Language":
                 setOpenLanguageModal(true);
                 break;
+            case "Theme":
+                setOpenThemeModal(true);
+                break;
             default:
                 break;
         }
     }
+    // const handleTheme = () => {
+    //     localStorage.setItem('firstTheme', theme1Color);
+    //     localStorage.setItem('secondTheme', theme2Color);
+    // }
+    const handleTheme1 = (ev) => {
+        const color = ev.target.value
+        setTheme1Color(color)
+        const r = parseInt(color.substr(1, 2), 16)
+        const g = parseInt(color.substr(3, 2), 16)
+        const b = parseInt(color.substr(5, 2), 16)
+        localStorage.setItem('firstTheme', `rgb(${r}, ${g}, ${b})`);
+    }
+    const handleTheme2 = (ev) => {
+        const color = ev.target.value
+        setTheme2Color(color)
+        const r = parseInt(color.substr(1, 2), 16)
+        const g = parseInt(color.substr(3, 2), 16)
+        const b = parseInt(color.substr(5, 2), 16)
+        localStorage.setItem('secondTheme', `rgb(${r}, ${g}, ${b})`);
+    }
     return (
         <>
+            <Dialog
+                open={openThemeModal}
+                TransitionComponent={Transition}
+                keepMounted
+                onClose={() => { setOpenThemeModal(false); }}
+                aria-describedby="alert-dialog-slide-description"
+            >
+                <DialogTitle>Change Application Theme</DialogTitle>
+                <DialogContent
+                    sx={{
+                        width: 500,
+                    }}>
+                    <div>
+                        <div style={{ display: 'flex' }}>
+                            <h2 style={{ color: theme1Color }}>Theme 1 Color : </h2>
+                            <TextField type="color" style={{ width: 100 }} value={theme1Color} onChange={(e) => handleTheme1(e)} />
+                        </div>
+                        <div style={{ display: 'flex' }}>
+                            <h2 style={{ color: theme2Color }}>Theme 2 Color : </h2>
+                            <TextField type="color" style={{ width: 100 }} value={theme2Color} onChange={(e) => handleTheme2(e)} />
+                        </div>
+                    </div>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => { setOpenThemeModal(false); window.location.reload() }}>Agree</Button>
+                </DialogActions>
+            </Dialog>
             <Dialog
                 open={openLanguageModal}
                 TransitionComponent={Transition}
@@ -91,9 +147,9 @@ export default function DeveloperOtions() {
                     direction={'down'}
                     FabProps={{
                         sx: {
-                            bgcolor: 'red',
+                            bgcolor: firstTheme,
                             '&:hover': {
-                                bgcolor: 'black',
+                                bgcolor: secondTheme,
                             }
                         }
                     }}

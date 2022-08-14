@@ -67,12 +67,5 @@ export default function Dashboard() {
                 {IsDeveloperModeOn && <DeveloperOtions />}
             </div>
         </div>
-        // <div style={{ flexDirection: 'row', display: 'flex' }}>
-        //     <div style={{ display: 'flex', margin: 'auto' }}>
-        //     </div>
-        //     <div style={{ display: 'flex', margin: 'auto' }}>
-        //         {IsDeveloperModeOn && <DeveloperOtions />}
-        //     </div>
-        // </div>
     )
 }

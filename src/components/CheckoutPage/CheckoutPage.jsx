@@ -19,6 +19,7 @@ import TransferTypeForm from './Forms/TransferTypeForm';
 import Axios from 'axios';
 import './Styles.css';
 import { presentLanguage } from '../../res/Values';
+import { bgColor } from '../../Globals/GlobalValues';
 
 const steps = [presentLanguage.word_Transfer_Type, presentLanguage.word_Sender_Details, presentLanguage.word_Receiver_Details, presentLanguage.word_Payment_Details];
 
@@ -36,12 +37,12 @@ const ColorlibStepIconRoot = styled('div')(({ theme, ownerState }) => ({
 	alignItems: 'center',
 	...(ownerState.active && {
 		backgroundImage:
-			'linear-gradient( 136deg, rgb(242,113,33) 0%, rgb(233,64,87) 50%, rgb(138,35,135) 100%)',
+			bgColor,
 		boxShadow: '0 4px 10px 0 rgba(0,0,0,.25)',
 	}),
 	...(ownerState.completed && {
 		backgroundImage:
-			'linear-gradient( 136deg, rgb(242,113,33) 0%, rgb(233,64,87) 50%, rgb(138,35,135) 100%)',
+			bgColor,
 	}),
 }));
 export default function CheckoutPage() {
@@ -184,7 +185,7 @@ export default function CheckoutPage() {
 					<Button onClick={() => { setIsWeekend(false) }}>{presentLanguage.word_Ok}</Button>
 				</DialogActions>
 			</Dialog>
-			<div className="modalHeader">
+			<div className="modalHeader" >
 				{presentLanguage.word_PAYMENT}
 			</div>
 			<Stepper activeStep={activeStep} className={classes.stepper}>
@@ -204,7 +205,7 @@ export default function CheckoutPage() {
 							<div className={classes.wrapper}>
 								<Fab color="info" aria-label="add" onClick={_handleSubmit} style={{
 									backgroundImage:
-										'linear-gradient( 136deg, rgb(242,113,33) 0%, rgb(233,64,87) 50%, rgb(138,35,135) 100%)',
+										bgColor,
 									boxShadow: '0 4px 10px 0 rgba(0,0,0,.25)'
 								}}>
 									{isLastStep ? <CheckIcon /> : <ArrowForwardIcon />}

@@ -2,8 +2,8 @@
 
 html,
 body {
-    background:
-        linear-gradient(200deg, rgb(0, 0, 0) 0%, rgb(216, 17, 43) 50%, rgb(0, 0, 0) 100%);
+    /* background:
+        linear-gradient(200deg, rgb(0, 0, 0) 0%, rgb(216, 17, 43) 50%, rgb(0, 0, 0) 100%); */
     background-repeat: no-repeat;
     background-size: auto;
     height: 100% !important;
