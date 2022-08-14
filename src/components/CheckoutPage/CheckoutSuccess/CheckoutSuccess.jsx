@@ -10,7 +10,7 @@ function CheckoutSuccess(props) {
 		Axios.post(`http://localhost:8081/messages/get/${props.MessageType}`)
 			.then((response) => setMessageInstruction(response.data.messageInstruction))
 			.catch((error) => console.log(error))
-	}, [props])
+	}, [props])// eslint-disable-next-line 
 	return (
 		<React.Fragment>
 			<Typography variant="h5" gutterBottom>
