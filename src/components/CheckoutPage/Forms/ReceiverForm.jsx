@@ -1,6 +1,7 @@
 import { Grid, TextField, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import Axios from 'axios';
+import { presentLanguage } from '../../../res/Values';
 
 export default function ReceiverForm(props) {
     const [ReceiverAccNum, setReceiverAccNum] = useState("");
@@ -20,7 +21,7 @@ export default function ReceiverForm(props) {
     return (
         <React.Fragment>
             <Typography variant="h6" gutterBottom>
-                Receiver Information
+                {presentLanguage.word_Receiver_Information}
             </Typography>
             <Grid container spacing={3}>
                 <Grid item xs={12} sm={6}>

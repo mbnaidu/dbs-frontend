@@ -18,8 +18,9 @@ import SavingsIcon from '@mui/icons-material/Savings';
 import TransferTypeForm from './Forms/TransferTypeForm';
 import Axios from 'axios';
 import './Styles.css';
+import { presentLanguage } from '../../res/Values';
 
-const steps = ["Transfer Type", 'Sender Details', 'Receiver Details', 'Payment Details'];
+const steps = [presentLanguage.word_Transfer_Type, presentLanguage.word_Sender_Details, presentLanguage.word_Receiver_Details, presentLanguage.word_Payment_Details];
 
 var today = new Date(),
 	date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate() + '-' + today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
@@ -58,6 +59,7 @@ export default function CheckoutPage() {
 	const [MessageType, setMessageType] = React.useState('');
 	const [BankCode, setBankCode] = React.useState("");
 	const [BankName, setBankName] = React.useState("");
+
 	function _sleep(ms) {
 		return new Promise(resolve => setTimeout(resolve, ms));
 	}
@@ -172,18 +174,18 @@ export default function CheckoutPage() {
 				keepMounted
 				aria-describedby="alert-dialog-slide-description"
 			>
-				<DialogTitle>{"It's WEEKEND !!!"}</DialogTitle>
+				<DialogTitle>{presentLanguage.word_Its_WEEKEND}</DialogTitle>
 				<DialogContent>
 					<DialogContentText id="alert-dialog-slide-description">
-						Unable to do any transactions on weekdays.....
+						{presentLanguage.word_Unable_to_do_any_transactions_on_weekdays}
 					</DialogContentText>
 				</DialogContent>
 				<DialogActions>
-					<Button onClick={() => { setIsWeekend(false) }}>Ok</Button>
+					<Button onClick={() => { setIsWeekend(false) }}>{presentLanguage.word_Ok}</Button>
 				</DialogActions>
 			</Dialog>
 			<div className="modalHeader">
-				PAYMENT
+				{presentLanguage.word_PAYMENT}
 			</div>
 			<Stepper activeStep={activeStep} className={classes.stepper}>
 				{steps.map(label => (

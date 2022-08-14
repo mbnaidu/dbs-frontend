@@ -1,14 +1,15 @@
 import Axios from 'axios';
 import MUIDataTable from 'mui-datatables';
 import React, { useEffect, useState } from 'react';
+import { presentLanguage } from '../res/Values';
 
 export default function Customers() {
     const [AllCustomers, setAllCustomers] = useState([]);
     const columns = [
-        { label: 'Number', name: 'accNo' },
-        { label: 'Name', name: 'accName' },
-        { label: 'Balance', name: 'blnc' },
-        { label: 'Debited', name: 'debited' },
+        { label: presentLanguage.word_Number, name: 'accNo' },
+        { label: presentLanguage.word_Name, name: 'accName' },
+        { label: presentLanguage.word_Balance, name: 'blnc' },
+        { label: presentLanguage.word_Debited, name: 'debited' },
     ];
     useEffect(() => {
         Axios.get("http://localhost:8081/customer/list")
@@ -18,14 +19,13 @@ export default function Customers() {
     return (
         <div style={{ margin: 20 }}>
             <MUIDataTable
-                title={"All Customers list"}
+                title={presentLanguage.word_All_Customers_list}
                 data={AllCustomers}
                 columns={columns}
                 options=
                 {{
                     filterType: "multiselect",
                     print: false,
-                    expandableRows: true,
                 }}
             />
         </div>

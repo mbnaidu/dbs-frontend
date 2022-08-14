@@ -11,19 +11,23 @@ import MenuItem from '@mui/material/MenuItem';
 import HeaderLogo from '../Assets/headerlogo.png';
 import { useNavigate } from 'react-router-dom';
 import Axios from 'axios';
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slide } from '@mui/material';
+import { presentLanguage } from '../res/Values';
 
-const pages = [
-    { title: 'Dashboard', route: "/dashboard" },
-    { title: 'Customers', route: "/customers" },
-    { title: 'Transactions', route: "/transactions" },
-    { title: 'Transaction', route: "/transaction" },
-    { title: 'Logout', route: "/logout" },
-];
-
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="up" ref={ref} {...props} />;
+});
 const Header = () => {
     let navigate = useNavigate();
     const [anchorElNav, setAnchorElNav] = React.useState(null);
-
+    const [open, setOpen] = React.useState(false);
+    const pages = [
+        { title: presentLanguage.word_Dashboard, route: "/dashboard" },
+        { title: presentLanguage.word_Customers, route: "/customers" },
+        { title: presentLanguage.word_Transactions, route: "/transactions" },
+        { title: presentLanguage.word_Transaction, route: "/transaction" },
+        { title: presentLanguage.word_Logout, route: "/logout" },
+    ];
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
     };
@@ -39,7 +43,8 @@ const Header = () => {
         Axios.post("http://localhost:8081/employee/logout", data)
             .then((response) => {
                 if (response.data === "logged Out") {
-                    localStorage.clear();
+                    localStorage.removeItem("session");
+                    localStorage.removeItem("developerMode");
                     window.location.reload();
                 }
             })
@@ -116,15 +121,34 @@ const Header = () => {
         )
     }
     return (
-        <AppBar position="static" style={{ background: 'linear-gradient(10deg, rgb(0, 0, 0) 0%, rgb(216, 17, 43) 50%, rgb(0, 0, 0) 100%)' }}>
-            <Container maxWidth="xl">
-                <Toolbar disableGutters>
-                    <img src={HeaderLogo} alt="headerLogo" width="300" height="80" />
-                    {MobileView()}
-                    {DesktopView()}
-                </Toolbar>
-            </Container>
-        </AppBar>
+        <>
+            <Dialog
+                open={open}
+                TransitionComponent={Transition}
+                keepMounted
+                aria-describedby="alert-dialog-slide-description"
+            >
+                <DialogTitle>{"Developer Mode"}</DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-slide-description">
+                        Please PRESS on OK to go developer mode.
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => { localStorage.removeItem("developerMode"); setOpen(false); window.location.reload(); }}>No</Button>
+                    <Button onClick={() => { localStorage.setItem("developerMode", true); setOpen(false); window.location.reload(); }}>Ok</Button>
+                </DialogActions>
+            </Dialog>
+            <AppBar position="static" style={{ background: 'linear-gradient(10deg, rgb(0, 0, 0) 0%, rgb(216, 17, 43) 50%, rgb(0, 0, 0) 100%)' }}>
+                <Container maxWidth="xl">
+                    <Toolbar disableGutters style={{ height: 80 }}>
+                        <img src={HeaderLogo} alt="headerLogo" width="300" height="80" style={{ cursor: 'pointer' }} onClick={() => setOpen(true)} />
+                        {MobileView()}
+                        {DesktopView()}
+                    </Toolbar>
+                </Container>
+            </AppBar>
+        </>
     );
 };
 export default Header;

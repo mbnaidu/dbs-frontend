@@ -3,6 +3,7 @@ import "../Styles/Login.css"
 import dbsLogo from '../Assets/dbs-bank-logo.png';
 import Axios from 'axios';
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slide } from '@mui/material';
+import { presentLanguage } from '../res/Values';
 
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -38,9 +39,9 @@ export default function Login() {
 
     const Form = () => (
         <div>
-            <FormInput description="Username" placeholder="Enter your username" type="text" id="username" />
-            <FormInput description="Password" placeholder="Enter your password" type="password" id="password" />
-            <FormButton title="Login" />
+            <FormInput description={presentLanguage.word_Username} placeholder={presentLanguage.word_Enter_your_username} type="text" id="username" />
+            <FormInput description={presentLanguage.word_Password} placeholder={presentLanguage.word_Enter_your_password} type="password" id="password" />
+            <FormButton title={presentLanguage.word_Login} />
         </div>
     );
 
@@ -65,14 +66,14 @@ export default function Login() {
                 keepMounted
                 aria-describedby="alert-dialog-slide-description"
             >
-                <DialogTitle>{"Logged out from previous session❓"}</DialogTitle>
+                <DialogTitle>{presentLanguage.word_Logged_out_from_previous_session}</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-slide-description">
-                        <strong>LOGOUT</strong> to continue ...❗
+                        <strong>{presentLanguage.word_LOGOUT}</strong>{presentLanguage.word_to_continue}
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={() => setOpen(false)}>OK</Button>
+                    <Button onClick={() => setOpen(false)}>{presentLanguage.word_Ok}</Button>
                 </DialogActions>
             </Dialog>
             <div id="loginform">

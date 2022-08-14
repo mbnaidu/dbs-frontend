@@ -1,6 +1,7 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, MenuItem, TextField, Typography } from '@mui/material';
 import Axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { presentLanguage } from '../../../res/Values';
 
 export default function PaymentForm(props) {
 	const [OpenErrorDialog, setOpenErrorDialog] = useState(false);
@@ -71,44 +72,44 @@ export default function PaymentForm(props) {
 				aria-describedby="alert-dialog-description"
 			>
 				<DialogTitle id="alert-dialog-title">
-					{"Insufficient Balance in your account"}
+					{presentLanguage.word_Insufficient_Balance_in_your_account}
 				</DialogTitle>
 				<DialogContent>
 					<DialogContentText id="alert-dialog-description">
-						No Overdraft access, Please contact Help.
+						{presentLanguage.word_No_Overdraft_access_Please_contact_Help}
 					</DialogContentText>
 				</DialogContent>
 				<DialogActions>
 					<Button onClick={() => { setOpenErrorDialog(false); setAmount(0) }} autoFocus>
-						Ok
+						{presentLanguage.word_Ok}
 					</Button>
 				</DialogActions>
 			</Dialog>
 			<Typography variant="h6" gutterBottom>
-				Payment Information
+				{presentLanguage.word_Payment_Information}
 			</Typography>
 			<Grid container spacing={3}>
 				<Grid item xs={12} sm={6}>
-					<TextField label="BIC Code" variant="standard" value={BIC || ""} onChange={(event) => setBIC(event.target.value)} />
+					<TextField label={presentLanguage.word_BIC_Code} variant="standard" value={BIC || ""} onChange={(event) => setBIC(event.target.value)} />
 				</Grid>
 				<Grid item xs={12} sm={6}>
-					<TextField label="Bank Name" variant="standard" value={BankName || ""} disabled />
+					<TextField label={presentLanguage.word_Bank_Name} variant="standard" value={BankName || ""} disabled />
 				</Grid>
 			</Grid>
 			<br />
 			<Grid container spacing={3}>
 				<Grid item xs={12} sm={6}>
-					<TextField id="standard-basic" label="Amount" variant="standard" disabled={!BankName} value={amount} type="number" onChange={(event) => setAmount(event.target.value)} />
+					<TextField id="standard-basic" label={presentLanguage.word_Amount} variant="standard" disabled={!BankName} value={amount} type="number" onChange={(event) => setAmount(event.target.value)} />
 				</Grid>
 				<Grid item xs={12} sm={6}>
 					<TextField
 						id="standard-select-currency"
 						select
 						variant="standard"
-						label="Select"
+						label={presentLanguage.word_Select}
 						value={currency}
 						disabled={!amount}
-						helperText="Please select currency to transfer"
+						helperText={presentLanguage.word_Please_select_currency_to_transfer}
 					>
 						{currencies.map((option) => (
 							<MenuItem key={option.value} value={option.value} onClick={() => handleCurrency(option)}>
