@@ -74,8 +74,8 @@ export default function Dashboard() {
     }
     return (
         <div>
-            <div style={{ display: 'flex' }}>
-                <div style={{ margin: 20, width: '48%' }}>
+            <div style={{ display: 'flex' }} className="dashboardMobile">
+                <div className="dashboardMobileCustomer">
                     <MUIDataTable
                         title={presentLanguage.word_Top_5_Customer_Transactions}
                         data={AllCustomers}
@@ -99,7 +99,7 @@ export default function Dashboard() {
                         }}
                     />
                 </div>
-                <div style={{ margin: 20, width: '48%' }}>
+                <div className="dashboardMobileCustomer">
                     <MUIDataTable
                         title={presentLanguage.word_Top_5_Bank_Transactions}
                         data={AllBanks}

@@ -14,6 +14,11 @@ html {
     font-size: 100%;
 }
 
+.dashboardMobileCustomer {
+    margin: 20px;
+    width: 48%;
+}
+
 .loginLogo {
     width: 250px;
     height: 250px;
@@ -170,6 +175,20 @@ section {
 }
 
 @media (max-width:480px) {
+    body {
+        overflow: auto;
+    }
+
+    .dashboardMobile {
+        flex-direction: column ! important;
+    }
+
+    .dashboardMobileCustomer {
+        margin: 0px;
+        width: 100%;
+        margin-top: 10px;
+    }
+
     .loginLogo {
         width: 200px;
         height: 200px;
