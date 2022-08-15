@@ -3,6 +3,7 @@ import { Fab, Typography } from '@mui/material';
 import CachedIcon from '@mui/icons-material/Cached';
 import Axios from 'axios';
 import { presentLanguage } from '../../../res/Values';
+import { bgColor } from '../../../Globals/GlobalValues';
 
 function CheckoutSuccess(props) {
 	const [MessageInstruction, setMessageInstruction] = useState("");
@@ -26,7 +27,7 @@ function CheckoutSuccess(props) {
 					width: 100,
 					margin: 10,
 					backgroundImage:
-						'linear-gradient( 136deg, rgb(242,113,33) 0%, rgb(233,64,87) 50%, rgb(138,35,135) 100%)',
+						bgColor,
 					boxShadow: '0 4px 10px 0 rgba(0,0,0,.25)'
 				}}>
 					<CachedIcon />
