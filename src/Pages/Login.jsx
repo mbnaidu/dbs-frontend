@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import "../Styles/Login.css"
 import dbsLogo from '../Assets/dbs-bank-logo.png';
 import Axios from 'axios';
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slide } from '@mui/material';
 import { presentLanguage } from '../res/Values';
-import { firstTheme, secondTheme } from '../Globals/GlobalValues';
+import { useEffect } from 'react';
 
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -13,23 +13,27 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function Login() {
     const [open, setOpen] = React.useState(false);
+    const [employeeID, setEmployeeID] = React.useState("");
+    const [employeePassword, setEmployeePassword] = useState("");
+    useEffect(() => {
+        employeeID.length === 6 && employeePassword.length === 6 && handleLogin();// eslint-disable-next-line
+    }, [employeeID, employeePassword]);
+
     const handleLogin = () => {
-        if (document.getElementById("username").value.length > 0) {
-            const data = {
-                empName: document.getElementById("username").value,
-                empPswd: document.getElementById("password").value
-            }
-            Axios.post("http://localhost:8081/employee/add", data)
-                .then((response) => {
-                    if (response.data === "Saved") {
-                        localStorage.setItem("session", document.getElementById("username").value);
-                        window.location.reload();
-                    } else {
-                        setOpen(true);
-                    }
-                })
-                .catch((error) => { console.log(error) });
+        const data = {
+            empName: employeeID,
+            empPswd: employeePassword,
         }
+        Axios.post("http://localhost:8081/employee/add", data)
+            .then((response) => {
+                if (response.data === "Saved") {
+                    localStorage.setItem("session", employeeID);
+                    window.location.reload();
+                } else {
+                    setOpen(true);
+                }
+            })
+            .catch((error) => { console.log(error) });
     };
     const FormHeader = () => (
         <h2 id="headerTitle">
@@ -37,30 +41,8 @@ export default function Login() {
         </h2>
     );
 
-
-    const Form = () => (
-        <div>
-            <FormInput description={presentLanguage.word_Username} placeholder={presentLanguage.word_Enter_your_username} type="text" id="username" />
-            <FormInput description={presentLanguage.word_Password} placeholder={presentLanguage.word_Enter_your_password} type="password" id="password" />
-            <FormButton title={presentLanguage.word_Login} />
-        </div>
-    );
-
-    const FormButton = props => (
-        <div id="button" className="row">
-            <button onClick={() => handleLogin()} style={{ background: `linear-gradient(10deg, ${firstTheme} 10%, ${secondTheme} 50%, ${firstTheme} 100%)` }}>{props.title}</button>
-        </div>
-    );
-
-    const FormInput = props => (
-        <div className="row">
-            <label>{props.description}</label>
-            <input type={props.type} placeholder={props.placeholder} id={props.id} />
-        </div>
-    );
-
     return (
-        <div style={{ paddingTop: window.innerHeight - 800 }}>
+        <div style={{ paddingTop: window.innerHeight - 750 }} className="loginSection">
             <Dialog
                 open={open}
                 TransitionComponent={Transition}
@@ -79,7 +61,19 @@ export default function Login() {
             </Dialog>
             <div id="loginform">
                 <FormHeader title="Login" />
-                <Form />
+                <section>
+                    <form action="">
+                        <div className="input-container" style={{ marginBottom: 40 }}>
+                            <input id="name" className="input" type="number" value={employeeID} onChange={(e) => setEmployeeID(e.target.value)} />
+                            <label className="label" htmlFor="name">Employee ID</label>
+                        </div>
+                        <div className="input-container" style={{ marginBottom: 40 }}>
+                            <input id="name" className="input" type="password" value={employeePassword} onChange={(e) => setEmployeePassword(e.target.value)} />
+                            <label className="label" htmlFor="name">Employee Pasword</label>
+                        </div>
+                    </form>
+                </section>
+
             </div>
         </div>
     )
