@@ -58,4 +58,6 @@ export const strings_en = {
     word_Bank_Code: "Bank Code",
     word_All_Transactions_list: "All Transactions list",
     word_Message_code: "Message Code",
+    word_Employee_ID: "Employee ID",
+    word_Employee_Password: "Employee Password",
 }

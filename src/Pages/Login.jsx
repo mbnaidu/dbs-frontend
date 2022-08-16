@@ -65,11 +65,11 @@ export default function Login() {
                     <form action="">
                         <div className="input-container" style={{ marginBottom: 40 }}>
                             <input id="name" className="input" type="number" value={employeeID} onChange={(e) => setEmployeeID(e.target.value)} />
-                            <label className="label" htmlFor="name">Employee ID</label>
+                            <label className="label" htmlFor="name">{presentLanguage.word_Employee_ID}</label>
                         </div>
                         <div className="input-container" style={{ marginBottom: 40 }}>
                             <input id="name" className="input" type="password" value={employeePassword} onChange={(e) => setEmployeePassword(e.target.value)} />
-                            <label className="label" htmlFor="name">Employee Pasword</label>
+                            <label className="label" htmlFor="name">{presentLanguage.word_Employee_Password}</label>
                         </div>
                     </form>
                 </section>

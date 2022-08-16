@@ -58,4 +58,6 @@ export const strings_tel = {
     word_Bank_Code: "బ్యాంక్ కోడ్",
     word_All_Transactions_list: "అన్ని లావాదేవీల జాబితా",
     word_Message_code: "సందేశం కోడ్",
+    word_Employee_ID: "ఉద్యోగి ID",
+    word_Employee_Password: "ఉద్యోగి పాస్వర్డ్",
 }

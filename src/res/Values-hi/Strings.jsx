@@ -58,4 +58,6 @@ export const strings_hi = {
     word_Bank_Code: "बैंक कोड",
     word_All_Transactions_list: "सभी लेनदेन सूची",
     word_Message_code: "संदेश कोड",
+    word_Employee_ID: "कर्मचारी ID",
+    word_Employee_Password: "कर्मचारी पासवर्ड",
 }
