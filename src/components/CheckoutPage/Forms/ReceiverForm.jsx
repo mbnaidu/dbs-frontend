@@ -6,11 +6,18 @@ import { presentLanguage } from '../../../res/Values';
 export default function ReceiverForm(props) {
     const [ReceiverAccNum, setReceiverAccNum] = useState("");
     const [ReceiverAccName, setReceiverAccName] = useState("");
-
+    const [transferType, setTransferType] = useState(props.TransferTypeData || "");
     useEffect(() => {
         Axios.post(`http://localhost:8081/customer/get/${ReceiverAccNum}`)
             .then((response) => {
-                setReceiverAccName(response.data ? response.data.accName : "");
+                if (response.data) {
+                    if ((response.data.accName).indexOf("BANK") > 0 && transferType === "To Bank") {
+                        setReceiverAccName(response.data.accName)
+                    }
+                    if ((response.data.accName).indexOf("BANK") === -1 && transferType === "To Person") {
+                        setReceiverAccName(response.data.accName)
+                    }
+                }
             })
             .catch((error) => console.log(error))
     }, [ReceiverAccNum]);

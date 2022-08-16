@@ -72,9 +72,9 @@ export default function CheckoutPage() {
 			case 0:
 				return <TransferTypeForm TransferTypeInfo={TransferTypeInfo} date={date} MessageTypeInfo={MessageTypeInfo} />;
 			case 1:
-				return <SenderForm senderInfo={senderInfo} />;
+				return <SenderForm senderInfo={senderInfo} TransferTypeData={TransferTypeData} />;
 			case 2:
-				return <ReceiverForm receiverInfo={receiverInfo} SenderAccNo={SenderAccNo} />;
+				return <ReceiverForm receiverInfo={receiverInfo} SenderAccNo={SenderAccNo} TransferTypeData={TransferTypeData} />;
 			case 3:
 				return <PaymentForm setAmountValue={setAmountValue} SenderAccNo={SenderAccNo} />;
 			default:
